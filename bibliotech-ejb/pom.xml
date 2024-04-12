@@ -104,14 +104,48 @@
         <plugins>			
 			<!--Configure the EJB plugin: we create EJB 3.2. If not specified, an error will arise because the plugin expects an Ejb-jar by default. -->
 			<plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-ejb-plugin</artifactId>
-                    <version>${version.ejb.plugin}</version>
-                    <configuration>
-                        <!-- Tell Maven we are using EJB 3.2 -->
-                        <ejbVersion>3.2</ejbVersion>
-                    </configuration>
-                </plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<version>${version.ejb.plugin}</version>
+				<configuration>
+					<!-- Tell Maven we are using EJB 3.2 -->
+					<ejbVersion>3.2</ejbVersion>
+				</configuration>
+			</plugin>
+			
+			<!-- Hibernate Tools Maven Plugin -->
+			<plugin>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-tools-maven-plugin</artifactId>
+				<version>${version.hibernate}</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate-tools</artifactId>
+						<version>${version.hibernate}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.mariadb.jdbc</groupId>
+						<artifactId>mariadb-java-client</artifactId>
+						<version>${version.mariadb.client}</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<id>entity-generation</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>hbm2java</goal>
+						</goals>
+						<configuration>
+							<ejb3>true</ejb3>
+							<jdk5>true</jdk5>
+							<propertyFile>${project.basedir}/src/main/hibernate/hibernate.properties</propertyFile>
+							<revengFile>${project.basedir}/src/main/hibernate/hibernate.reveng.xml</revengFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
         </plugins>
     </build>
 </project>
