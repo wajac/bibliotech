@@ -31,7 +31,7 @@ public class Book implements java.io.Serializable, EntityUID {
 	private String description;
 	private String isbn;
 	private Integer nbPages;
-	private Date published;
+	private Date publishedDate;
 	private Boolean illustrations;
 	private byte[] cover;
 	private Date majDate;
@@ -46,13 +46,13 @@ public class Book implements java.io.Serializable, EntityUID {
 		this.majDate = majDate;
 	}
 
-	public Book(String title, String description, String isbn, Integer nbPages, Date published, Boolean illustrations,
+	public Book(String title, String description, String isbn, Integer nbPages, Date publishedDate, Boolean illustrations,
 			byte[] cover, Date majDate, Set<Author> authors, Set<Category> categories) {
 		this.title = title;
 		this.description = description;
 		this.isbn = isbn;
 		this.nbPages = nbPages;
-		this.published = published;
+		this.publishedDate = publishedDate;
 		this.illustrations = illustrations;
 		this.cover = cover;
 		this.majDate = majDate;
@@ -60,14 +60,14 @@ public class Book implements java.io.Serializable, EntityUID {
 		this.categories = categories;
 	}
 
-	public Book(Integer uid, String title, String description, String isbn, Integer nbPages, Date published, Boolean illustrations,
+	public Book(Integer uid, String title, String description, String isbn, Integer nbPages, Date publishedDate, Boolean illustrations,
 			byte[] cover, Date majDate, Set<Author> authors, Set<Category> categories) {
 		this.uid = uid;
 		this.title = title;
 		this.description = description;
 		this.isbn = isbn;
 		this.nbPages = nbPages;
-		this.published = published;
+		this.publishedDate = publishedDate;
 		this.illustrations = illustrations;
 		this.cover = cover;
 		this.majDate = majDate;
@@ -123,13 +123,13 @@ public class Book implements java.io.Serializable, EntityUID {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "published", length = 10)
-	public Date getPublished() {
-		return this.published;
+	@Column(name = "published_date", length = 10)
+	public Date getPublishedDate() {
+		return this.publishedDate;
 	}
 
-	public void setPublished(Date published) {
-		this.published = published;
+	public void setPublishedDate(Date published) {
+		this.publishedDate = published;
 	}
 
 	@Column(name = "illustrations")

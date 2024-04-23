@@ -6,6 +6,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DTOAuthor implements Serializable {
+	
+	// ======================================
+	// =             Attributes             =
+	// ======================================
+	
 	private static final long serialVersionUID = 1;
 	private Integer uid;
 	private String civility;
@@ -19,7 +24,11 @@ public class DTOAuthor implements Serializable {
 	private String country;
 	private Date majDate;
 	private Set<DTOBook> books = new HashSet<DTOBook>();
-
+	
+	// ======================================
+	// =            Constructors            =
+	// ======================================
+	
 	public DTOAuthor() {
 	}
 
@@ -59,6 +68,10 @@ public class DTOAuthor implements Serializable {
 		this.majDate = majDate;
 		this.books = books;
 	}
+
+	// ======================================
+	// =          Getters & Setters         =
+	// ======================================
 
 	public Integer getUid() {
 		return this.uid;
@@ -155,6 +168,10 @@ public class DTOAuthor implements Serializable {
 	public void setBooks(Set<DTOBook> books) {
 		this.books = books;
 	}
+	
+	// ======================================
+	// =         hash, equals, toString     =
+	// ======================================
 	
 	@Override
 	public int hashCode() {

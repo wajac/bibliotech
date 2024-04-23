@@ -13,7 +13,7 @@ CREATE TABLE bibliotech.book (
 	description VARCHAR(2000),
 	isbn VARCHAR(255),
 	nb_pages INTEGER,
-	published DATE,
+	published_date DATE,
 	illustrations BOOLEAN DEFAULT FALSE,
 	cover BLOB,
 	maj_date TIMESTAMP NOT NULL DEFAULT current_timestamp,
@@ -78,7 +78,7 @@ INSERT INTO bibliotech.category (code, label) values
 ('ESSAY', 'category.label.essay'),
 ('SHORTSTORY', 'category.label.shortstory'),
 ('FANTASY', 'category.label.fantasy'),
-('SCIFI', 'category.label.scifi'),
+('SCI-FI', 'category.label.scifi'),
 ('HISTORY', 'category.label.history'),
 ('BIOGRAPHY', 'category.label.biography'),
 ('HUMANITIES', 'category.label.humanities'),
@@ -91,7 +91,7 @@ INSERT INTO bibliotech.category (code, label) values
 ('CHILDREN', 'category.label.children');
 
 
-INSERT INTO bibliotech.book (title, description, nb_pages, published, illustrations) values
+INSERT INTO bibliotech.book (title, description, nb_pages, published_date, illustrations) values
 ('Design Patterns: Elements of Reusable Object-Oriented Software',
 'Capturing a wealth of experience about the design of object-oriented software, four top-notch designers present a catalog of simple and succinct solutions to commonly occurring design problems. Previously undocumented, these 23 patterns allow designers to create more flexible, elegant, and ultimately reusable designs without having to rediscover the design solutions themselves.
 The authors begin by describing what patterns are and how they can help you design object-oriented software. They then go on to systematically name, explain, evaluate, and catalog recurring designs in object-oriented systems. With Design Patterns as your guide, you will learn how these important patterns fit into the software development process, and how you can leverage them to solve your own design problems most efficiently.

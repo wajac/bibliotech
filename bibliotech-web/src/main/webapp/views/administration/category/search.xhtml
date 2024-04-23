@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template.xhtml">
+	
+	<ui:define name="title">
+		<h:outputText value="#{msg['menu.administration.categories']}"/>
+	</ui:define>
+	
+	<ui:define name="content">
+	
+	<h:form id="form1" onkeypress="return avoidEnter(event)">
+		
+		<p:commandButton id="create" value="#{msg['button.create']}" actionListener="#{categorySearchManager.create()}" update="createDialog" oncomplete="PF('createWidget').show()"/>
+		
+		<div style="width:600px; margin-top:10px; margin-bottom:10px;">
+			<p:dataTable id="list1" value="#{categorySearchDataModel.categories}" var="c"
+				paginator="true" rows="20" paginatorPosition="top" rowKey="#{c.uid}" selectionMode="single">
+				
+				<p:ajax event="rowSelect" listener="#{categorySearchManager.updateRow}" update="createDialog" oncomplete="PF('createWidget').show()"/>
+				
+				<p:column headerText="#{msg['category.search.code']}" style="width:100px">
+					<h:outputText value="#{c.code}"/>
+				</p:column>
+				
+				<p:column headerText="#{msg['category.search.label']}" style="width:300px">
+					<h:outputText value="#{msg[c.label]}" />
+				</p:column>
+				
+				<p:column headerText="uid" style="width:50px; text-align:right">
+					<h:outputText value="#{c.uid}"/>
+				</p:column>
+				
+				<p:column style="width:30px; text-align:center">
+					<p:commandButton icon="ui-icon-trash" actionListener="#{categorySearchManager.delete(c.uid)}"/>
+				</p:column>
+				
+			</p:dataTable>
+		</div>
+		
+	</h:form>
+	
+	<!-- Dialog for creating / modifying a category -->
+	
+	<p:dialog id="createDialog" widgetVar="createWidget" header="#{categorySearchManager.getDialogTitle()}" 
+		dynamic="true" closable="true" closeOnEscape="true" appendTo="@(body)" modal="false">
+
+		<h:form id="formDialog">
+			<p:panel styleClass="no-border">
+				
+				<p:panelGrid columns="2">
+					<h:outputText value="#{msg['category.code']}" styleClass="label"/>
+					<p:inputText value="#{categorySearchManager.category.code}" onkeyup="this.value = value.toUpperCase()"/>
+					<h:outputText value="#{msg['category.label']}" styleClass="label"/>
+					<p:inputText value="#{categorySearchManager.category.label}" style="width:300px"/>
+				</p:panelGrid>
+				
+				<f:facet name="footer">
+					<div style="text-align:right">
+						<p:commandButton id="save" value="#{msg['button.save']}" 
+							actionListener="#{categorySearchManager.saveOrUpdate()}" />
+					</div>
+				</f:facet>
+				
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+	</ui:define>
+	
+</ui:composition>

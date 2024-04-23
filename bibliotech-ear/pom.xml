@@ -59,16 +59,14 @@
                         have any modules (EJB-JARs and WARs) use them -->
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <modules>
-                    <!-- Default context root of the web app is /bibliotech-web.
+                    <!-- DONE: Default context root of the web app is /bibliotech-web.
                         If a custom context root is needed, uncomment the following snippet to
                         register our War as a web module and set the contextRoot property -->
-                    <!--
                     <webModule>
                         <groupId>${project.groupId}</groupId>
                         <artifactId>bibliotech-web</artifactId>
                         <contextRoot>/bibliotech</contextRoot>
                     </webModule>
-                    -->
                     </modules>
                     <outputFileNameMapping>@{artifactId}@@{dashClassifier?}@.@{extension}@</outputFileNameMapping>
                 </configuration>

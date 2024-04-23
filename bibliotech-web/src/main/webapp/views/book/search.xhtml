@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template.xhtml">
+	
+	<ui:define name="title">
+		<h:outputText value="#{msg['book.search.title']}"/>
+	</ui:define>
+	
+	<ui:define name="content">
+	
+	<h:form id="form1" onkeypress="return avoidEnter(event)">
+	
+		<p:accordionPanel id="filtres">
+			<p:tab closable="true" title="#{msg['filter.title']}">
+				<p:panelGrid>
+					<p:row>
+						<p:column>
+							<h:outputLabel for="category" value="#{msg['book.search.filter.category']}" styleClass="label"/>
+						</p:column>
+						<p:column>
+							<p:selectOneMenu id="category" value="#{bookSearchOptions.category}" converter="categoryConverter" style="width:175px">
+								<f:selectItem itemValue="" itemLabel=""/>
+								<f:selectItems value="#{categorySearchDataModel.categories}" var="c" itemValue="#{c}" itemLabel="#{msg[c.label]}"/>
+							</p:selectOneMenu>
+						</p:column>
+						<p:column>
+							<h:outputLabel for="title" value="#{msg['book.search.filter.title']}" styleClass="label"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="title" value="#{bookSearchOptions.book}" style="width:400px"/>
+						</p:column>
+						<p:column>
+							<h:outputLabel for="author" value="#{msg['book.search.filter.author']}" styleClass="label"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="author" value="#{bookSearchOptions.author}" style="width:400px"/>
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column colspan="4">
+							<p:commandButton id="search" value="#{msg['button.search']}" update="form1:list1"/>
+							<p:commandButton id="create" value="#{msg['button.create']}" actionListener="#{bookSearchManager.create()}"/>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:tab>
+		</p:accordionPanel>
+		
+		<p:dataTable id="list1" value="#{bookSearchDataModel}" var="b" lazy="true"
+			paginator="true" rows="#{bookSearchOptions.pageSize}" rowsPerPageTemplate="10,20,40,80"  paginatorPosition="top"
+			selectionMode="single" selection="#{bookSearchOptions.selected}"
+			emptyMessage="#{msg['book.search.empty']}" style="margin-top:10px; margin-bottom:10px;">
+			
+			<p:ajax event="rowSelect" listener="#{bookSearchManager.onRowClick}"/>
+			
+			<p:column headerText="#{msg['book.search.column.category']}" style="width:80px;">
+				<h:outputText value="#{b.bookCategories}"/>
+			</p:column>
+			
+			<p:column headerText="#{msg['book.search.column.title']}">
+				<h:outputText value="#{b.bookTitle}"/>
+			</p:column>
+			
+			<p:column headerText="#{msg['book.search.column.authors']}">
+				<h:outputText value="#{b.bookAuthors}"/>
+			</p:column>
+			
+			<p:column headerText="uid" style="width:50px; text-align:right">
+				<h:outputText value="#{b.bookUid}"/>
+			</p:column>
+			
+		</p:dataTable>
+	
+	</h:form>
+	
+	</ui:define>
+	
+</ui:composition>

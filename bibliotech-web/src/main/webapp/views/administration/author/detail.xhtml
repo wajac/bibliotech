@@ -1,0 +1,140 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template.xhtml">
+	
+	<ui:define name="title">
+		<h:outputText value="#{msg['author.detail.title']}"/>
+	</ui:define>
+	
+	<ui:define name="content">
+	
+	<f:metadata>
+		<f:viewParam name="rp" value="#{authorManager.returnPoint}"/>
+		<f:viewParam name="uid" value="#{authorManager.uid}"/>
+	</f:metadata>
+	
+	<h:form id="form1">
+	
+		<p:panel style="width:600px; padding-top:10px; padding-bottom:10px;">
+			<f:facet name="footer">
+				<span style="float:left">
+					<h:outputText value="#{msg['last.update']}" styleClass="label"/> 
+					<h:outputText value="#{authorManager.author.majDate}" converter="datetimeConverter" style="margin-left:5px"/>
+				</span>
+				
+				<p:commandButton value="#{msg['button.cancel']}" immediate="true" action="#{authorManager.formatToCaller(true)}"/>
+				<p:commandButton value="#{msg['button.save']}" action="#{authorManager.saveOrUpdate()}"/>
+				<p:commandButton value="#{msg['button.delete']}" action="#{authorManager.delete()}" rendered="#{authorManager.autorisation('delete')}">
+					<p:confirm header="#{msg['confirm.delete.title']}" message="#{msg['author.delete.confirm.message']}"/>
+				</p:commandButton>
+			</f:facet>
+			
+			<p:panelGrid>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="civility" value="#{msg['author.civility']}" styleClass="label"/>
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="civility" value="#{authorManager.author.civility}">
+							<f:selectItem itemValue="" itemLabel=""/>
+							<f:selectItems value="#{civilityData.civilities}" var="c" itemValue="#{c.label}" itemLabel="#{msg[c.label]}"/>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>
+						<p:outputLabel for="gender" value="#{msg['author.gender']}" styleClass="label"/>
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="gender" value="#{authorManager.author.gender}">
+							<f:selectItem itemValue="M" itemLabel="#{msg['author.gender.man']}"/>
+							<f:selectItem itemValue="F" itemLabel="#{msg['author.gender.woman']}"/>
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="firstName" value="#{msg['author.first.name']}" styleClass="label required"/>
+					</p:column>
+					<p:column colspan="3">
+						<p:inputText id="firstName" value="#{authorManager.author.firstName}" required="false" style="width:400px"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="lastName" value="#{msg['author.last.name']}" styleClass="label required"/>
+					</p:column>
+					<p:column colspan="3">
+						<p:inputText id="lastName" value="#{authorManager.author.lastName}" required="false" style="width:400px"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="height:10px"></p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="address" value="#{msg['author.address']}" styleClass="label"/>
+					</p:column>
+					<p:column colspan="3">
+						<p:inputText id="address" value="#{authorManager.author.address1}" style="width:400px"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+					</p:column>
+					<p:column colspan="3">
+						<p:inputText value="#{authorManager.author.address2}" style="width:400px"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="zipCode" value="#{msg['author.zip.code']}" styleClass="label"/>
+					</p:column>
+					<p:column colspan="3">
+						<p:inputText id="zipCode" value="#{authorManager.author.zipCode}"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="city" value="#{msg['author.city']}" styleClass="label"/>
+					</p:column>
+					<p:column colspan="3">
+						<p:inputText id="city" value="#{authorManager.author.city}" style="width:400px" onkeyup="this.value = value.toUpperCase()"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="country" value="#{msg['author.country']}" styleClass="label"/>
+					</p:column>
+					<p:column colspan="3">
+						<p:inputText id="country" value="#{authorManager.author.country}" style="width:400px" onkeyup="this.value = value.toUpperCase()"/>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+			
+			<div style="height:10px"></div>
+			
+			<p:dataTable id="list1" value="#{authorManager.author.books}" var="b" 
+					emptyMessage="#{msg['empty.list']}" style="margin-top:20px">
+				
+				<f:facet name="header">
+					#{msg['author.books']}
+					<p:commandButton id="addBook" value="#{msg['button.add']}" actionListener="#{authorManager.addBook()}" update="list1" style="margin-left:60px"/>
+				</f:facet>
+				
+				<p:column headerText="#{msg['author.books.title']}">
+					<p:inputText value="#{b.title}" style="width:90%"/>
+				</p:column>
+				<p:column style="width:30px; text-align:center">
+					<p:commandButton id="delBook" icon="ui-icon-trash" actionListener="#{authorManager.deleteBook(b)}" update="list1"/>
+				</p:column>
+			</p:dataTable>
+			
+			<div style="height:10px"></div>
+		</p:panel>
+	</h:form>
+	
+ 	</ui:define>
+	
+</ui:composition>

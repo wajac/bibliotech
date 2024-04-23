@@ -1,0 +1,162 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template.xhtml">
+	
+	<ui:define name="title">
+		<h:outputText value="#{msg['book.detail.title']}"/>
+	</ui:define>
+	
+	<ui:define name="content">
+	
+	<f:metadata>
+		<f:viewParam name="rp" value="#{bookManager.returnPoint}"/>
+		<f:viewParam name="uid" value="#{bookManager.uid}"/>
+	</f:metadata>
+	
+	<h:form id="form1">
+	
+		<p:panel style="width:600px; padding-top:10px; padding-bottom:10px;">
+			<f:facet name="footer">
+				<span style="float:left">
+					<h:outputText value="#{msg['last.update']}" styleClass="label"/> 
+					<h:outputText value="#{bookManager.book.majDate}" converter="datetimeConverter" style="margin-left:5px"/>
+				</span>
+				
+				<p:commandButton value="#{msg['button.cancel']}" immediate="true" action="#{bookManager.formatToCaller(true)}"/>
+				<p:commandButton value="#{msg['button.save']}" action="#{bookManager.saveOrUpdate()}"/>
+				<p:commandButton value="#{msg['button.delete']}" action="#{bookManager.delete()}" rendered="#{bookManager.autorisation('delete')}">
+					<p:confirm header="#{msg['confirm.delete.title']}" message="#{msg['book.delete.confirm.message']}"/>
+				</p:commandButton>
+			</f:facet>
+			
+			<p:panelGrid>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="title" value="#{msg['book.title']}" styleClass="label required"/>
+					</p:column>
+					<p:column colspan="3">
+						<p:inputText id="title" value="#{bookManager.book.title}" required="false" style="width:400px"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="description" value="#{msg['book.description']}" styleClass="label"/>
+					</p:column>
+					<p:column colspan="3">
+						<p:inputTextarea id="description" value="#{bookManager.book.description}" rows="8" cols="56" maxlength="2000" autoResize="false" style="resize:none"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="height:10px"></p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="nbPages" value="#{msg['book.number.pages']}" styleClass="label"/>
+					</p:column>
+					<p:column>
+						<p:inputText id="nbPages" value="#{bookManager.book.nbPages}" size="6"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel for="illustrations" value="#{msg['book.illustrations']}" styleClass="label"/>
+					</p:column>
+					<p:column>
+						<p:selectBooleanCheckbox id="illustrations" value="#{bookManager.book.illustrations}"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="isbn" value="#{msg['book.isbn']}" styleClass="label"/>
+					</p:column>
+					<p:column>
+						<p:inputText id="isbn" value="#{bookManager.book.isbn}" size="15"/>
+					</p:column>
+					<p:column>
+						<p:outputLabel for="publishedDate" value="#{msg['book.published.date']}" styleClass="label"/>
+					</p:column>
+					<p:column>
+						<p:datePicker id="publishedDate" value="#{bookManager.book.publishedDate}" pattern="dd/MM/yyyy" showIcon="true" style="width:auto"/>
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column style="height:10px"></p:column>
+				</p:row>
+				
+			</p:panelGrid>
+			
+			<p:dataTable id="list1" value="#{bookManager.book.categories}" var="c" 
+					emptyMessage="#{msg['empty.list']}" style="margin-top:20px">
+				
+				<f:facet name="header">
+					#{msg['book.categories']}
+					<p:commandButton id="addCategory" value="#{msg['button.add']}" actionListener="#{bookManager.newCategory()}" update="addCategoryDialog" oncomplete="PF('addWidget').show()" style="margin-left:60px"/>
+				</f:facet>
+				
+				<p:column headerText="#{msg['book.categories.code']}">
+					<h:outputText value="#{c.code}" style="width:90%"/>
+				</p:column>
+				<p:column headerText="#{msg['book.categories.label']}">
+					<h:outputText value="#{msg[c.label]}" style="width:90%"/>
+				</p:column>
+				<p:column style="width:30px; text-align:center">
+					<p:commandButton id="delCategory" icon="ui-icon-trash" actionListener="#{bookManager.deleteCategory(c)}" update="list1"/>
+				</p:column>
+			</p:dataTable>
+			
+			<div style="height:10px"></div>
+			
+			<p:dataTable id="list2" value="#{bookManager.book.authors}" var="a" 
+					emptyMessage="#{msg['empty.list']}" style="margin-top:20px">
+				
+				<f:facet name="header">
+					#{msg['book.authors']}
+					<p:commandButton id="addAuthor" value="#{msg['button.add']}" actionListener="#{bookManager.addAuthor()}" update="list2" style="margin-left:60px"/>
+				</f:facet>
+				
+				<p:column headerText="#{msg['book.authors.first.name']}">
+					<p:inputText value="#{a.firstName}" style="width:90%"/>
+				</p:column>
+				<p:column headerText="#{msg['book.authors.last.name']}">
+					<p:inputText value="#{a.lastName}" style="width:90%"/>
+				</p:column>
+				<p:column style="width:30px; text-align:center">
+					<p:commandButton id="delAuthor" icon="ui-icon-trash" actionListener="#{bookManager.deleteAuthor(a)}" update="list2"/>
+				</p:column>
+			</p:dataTable>
+			
+			<div style="height:10px"></div>
+		</p:panel>
+	</h:form>
+	
+	<!-- Dialog for adding a book category -->
+	
+	<p:dialog id="addCategoryDialog" widgetVar="addWidget" header="#{msg['book.dialog.title.add']}" 
+		dynamic="true" closable="true" closeOnEscape="true" appendTo="@(body)" modal="false">
+
+		<h:form id="formDialog">
+			<p:panel styleClass="no-border">
+				
+				<p:panelGrid columns="2">
+					<h:outputText value="#{msg['book.dialog.category']}" styleClass="label"/>
+					<h:selectOneMenu value="#{bookManager.category}" converter="categoryConverter">
+						<f:selectItem itemValue="" itemLabel=""/>
+						<f:selectItems value="#{categorySearchDataModel.categories}" var="c" itemValue="#{c}" itemLabel="#{msg[c.label]}"/>
+					</h:selectOneMenu>
+				</p:panelGrid>
+				
+				<f:facet name="footer">
+					<div style="text-align:right">
+						<p:commandButton id="cancel" value="#{msg['button.cancel']}" onclick="PF('addWidget').hide()"/>
+						<p:commandButton id="add" value="#{msg['button.add']}" actionListener="#{bookManager.addCategory(bookManager.category)}" update="form1:list1" oncomplete="PF('addWidget').hide()"/>
+					</div>
+				</f:facet>
+				
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+	</ui:define>
+	
+</ui:composition>

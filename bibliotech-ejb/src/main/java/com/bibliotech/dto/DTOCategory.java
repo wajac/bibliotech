@@ -5,33 +5,46 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DTOCategory implements Serializable {
+	
+	// ======================================
+	// =             Attributes             =
+	// ======================================
+	
 	private static final long serialVersionUID = 1;
 	private Integer uid;
 	private String code;
 	private String label;
 	private Set<DTOBook> books = new HashSet<DTOBook>();
-
+	
+	// ======================================
+	// =            Constructors            =
+	// ======================================
+	
 	public DTOCategory() {
 	}
-
+	
 	public DTOCategory(String code, String label) {
 		this.code = code;
 		this.label = label;
 	}
-
+	
 	public DTOCategory(String code, String label, Set<DTOBook> books) {
 		this.code = code;
 		this.label = label;
 		this.books = books;
 	}
-
+	
 	public DTOCategory(Integer uid, String code, String label, Set<DTOBook> books) {
 		this.uid = uid;
 		this.code = code;
 		this.label = label;
 		this.books = books;
 	}
-
+	
+	// ======================================
+	// =          Getters & Setters         =
+	// ======================================
+	
 	public Integer getUid() {
 		return this.uid;
 	}
@@ -63,6 +76,10 @@ public class DTOCategory implements Serializable {
 	public void setBooks(Set<DTOBook> books) {
 		this.books = books;
 	}
+	
+	// ======================================
+	// =            hash, equals            =
+	// ======================================
 	
 	@Override
 	public int hashCode() {

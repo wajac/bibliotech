@@ -5,10 +5,11 @@ import javax.ejb.Local;
 import com.bibliotech.dto.DTOAuthor;
 import com.bibliotech.dto.DTOBook;
 import com.bibliotech.dto.DTOCategory;
+import com.bibliotech.dto.DTOSearchBooks;
 import com.bibliotech.utils.QueryResult;
 
 @Local
-public interface BibliotechFacadeLocale {
+public interface BibliotechFacadeLocal {
 	/*
 	 * Author
 	 */
@@ -35,4 +36,10 @@ public interface BibliotechFacadeLocale {
 	public DTOCategory getCategory(Integer uid);
 	public DTOCategory saveOrUpdateCategory(DTOCategory dto) throws Exception;
 	public void deleteCategory(Integer uid) throws Exception;
+	
+	/*
+	 * Search authors, books and categories
+	 */
+	
+	public QueryResult<DTOSearchBooks> search(String category, String title, String author, boolean count, int first, int pageSize, String sortField, String sortOrder);
 }

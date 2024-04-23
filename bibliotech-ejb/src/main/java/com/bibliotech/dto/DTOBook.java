@@ -6,19 +6,28 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DTOBook implements Serializable {
+	
+	// ======================================
+	// =             Attributes             =
+	// ======================================
+	
 	private static final long serialVersionUID = 1;
 	private Integer uid;
 	private String title;
 	private String description;
 	private String isbn;
 	private Integer nbPages;
-	private Date published;
+	private Date publishedDate;
 	private Boolean illustrations;
 	private byte[] cover;
 	private Date majDate;
 	private Set<DTOAuthor> authors = new HashSet<DTOAuthor>();
 	private Set<DTOCategory> categories = new HashSet<DTOCategory>();
-
+	
+	// ======================================
+	// =            Constructors            =
+	// ======================================
+	
 	public DTOBook() {
 	}
 
@@ -27,13 +36,13 @@ public class DTOBook implements Serializable {
 		this.majDate = majDate;
 	}
 
-	public DTOBook(String title, String description, String isbn, Integer nbPages, Date published, Boolean illustrations,
+	public DTOBook(String title, String description, String isbn, Integer nbPages, Date publishedDate, Boolean illustrations,
 			byte[] cover, Date majDate, Set<DTOAuthor> authors, Set<DTOCategory> categories) {
 		this.title = title;
 		this.description = description;
 		this.isbn = isbn;
 		this.nbPages = nbPages;
-		this.published = published;
+		this.publishedDate = publishedDate;
 		this.illustrations = illustrations;
 		this.cover = cover;
 		this.majDate = majDate;
@@ -41,21 +50,25 @@ public class DTOBook implements Serializable {
 		this.categories = categories;
 	}
 
-	public DTOBook(Integer uid, String title, String description, String isbn, Integer nbPages, Date published, Boolean illustrations,
+	public DTOBook(Integer uid, String title, String description, String isbn, Integer nbPages, Date publishedDate, Boolean illustrations,
 			byte[] cover, Date majDate, Set<DTOAuthor> authors, Set<DTOCategory> categories) {
 		this.uid = uid;
 		this.title = title;
 		this.description = description;
 		this.isbn = isbn;
 		this.nbPages = nbPages;
-		this.published = published;
+		this.publishedDate = publishedDate;
 		this.illustrations = illustrations;
 		this.cover = cover;
 		this.majDate = majDate;
 		this.authors = authors;
 		this.categories = categories;
 	}
-
+	
+	// ======================================
+	// =          Getters & Setters         =
+	// ======================================
+	
 	public Integer getUid() {
 		return this.uid;
 	}
@@ -96,12 +109,12 @@ public class DTOBook implements Serializable {
 		this.nbPages = nbPages;
 	}
 
-	public Date getPublished() {
-		return this.published;
+	public Date getPublishedDate() {
+		return this.publishedDate;
 	}
 
-	public void setPublished(Date published) {
-		this.published = published;
+	public void setPublishedDate(Date published) {
+		this.publishedDate = published;
 	}
 
 	public Boolean getIllustrations() {
@@ -143,6 +156,10 @@ public class DTOBook implements Serializable {
 	public void setCategories(Set<DTOCategory> categories) {
 		this.categories = categories;
 	}
+	
+	// ======================================
+	// =         hash, equals, toString     =
+	// ======================================
 	
 	@Override
 	public int hashCode() {

@@ -44,12 +44,6 @@
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom>22.0.0.Final</version.jboss.bom>
-        
-        <!-- MariaDB Java Client -->
-        <version.mariadb.client>3.3.3</version.mariadb.client>
-        
-        <!-- Hibernate Tools Maven Plugin -->
-        <version.hibernate>5.3.20.Final</version.hibernate>
 
         <!-- other plugin versions -->
         <version.compiler.plugin>3.8.1</version.compiler.plugin>
@@ -62,6 +56,15 @@
         <!-- maven-compiler-plugin -->
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
+        
+        <!-- MariaDB Java Client -->
+        <version.mariadb.client>3.3.3</version.mariadb.client>
+        
+        <!-- Hibernate Tools Maven Plugin -->
+        <version.hibernate>5.3.20.Final</version.hibernate>
+        
+        <!-- PrimeFaces -->
+        <version.primefaces>7.0</version.primefaces>
     </properties>
 
     <!-- the JBoss community and Red Hat GA Maven repositories -->
@@ -137,6 +140,14 @@
                 <version>${version.mariadb.client}</version>
                 <scope>provided</scope>
             </dependency>
+            
+			<!-- PrimeFaces -->
+			<dependency>
+				<groupId>org.primefaces</groupId>
+				<artifactId>primefaces</artifactId>
+				<version>${version.primefaces}</version>
+				<scope>compile</scope>
+			</dependency>
         </dependencies>
     </dependencyManagement>
     
