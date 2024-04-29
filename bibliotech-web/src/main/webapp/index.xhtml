@@ -8,7 +8,13 @@
 	<ui:define name="content">
 		<center>
 			<h1><h:outputText value="#{msg['application.welcome']}" /></h1>
-			<h:graphicImage value="/resources/images/library-1.jpg" />
+			<p:imageSwitch effect="fade" slideshowSpeed="8000">
+				<p:graphicImage value="/resources/images/library-1.jpg" height="600" style="background:#ffffff; padding-left: 15px;"/>
+				<p:graphicImage value="/resources/images/library-2.jpg" height="600" style="background:#ffffff; padding-left: 75px;"/>
+				<p:graphicImage value="/resources/images/library-3.jpg" height="600" style="background:#ffffff; padding-left: 100px;"/>
+				<p:graphicImage value="/resources/images/library-4.jpg" height="600" style="background:#ffffff; padding-left: 75px;"/>
+				<p:graphicImage value="/resources/images/library-5.jpg" height="600" style="background:#ffffff; padding-left: 75px;"/>
+			</p:imageSwitch>
 		</center>
 	</ui:define>
 

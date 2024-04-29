@@ -19,7 +19,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.github.wajac</groupId>
+        <groupId>com.wajac</groupId>
         <artifactId>bibliotech</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
