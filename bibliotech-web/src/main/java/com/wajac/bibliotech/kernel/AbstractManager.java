@@ -9,6 +9,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
+import com.wajac.bibliotech.exception.ExceptionCause;
+import com.wajac.bibliotech.exception.ValidationException;
 import com.wajac.bibliotech.utils.Utils;
 import com.wajac.bibliotech.kernel.enums.ApplicationPageName;
 
@@ -227,11 +229,19 @@ public abstract class AbstractManager implements Serializable {
 	 */
 	public void sendFacesMessage(Exception e, boolean useFlashContext) {
 		FacesContext facesContext = getFacesContext();
-
+		
 		facesContext.getExternalContext().getFlash().setKeepMessages(useFlashContext);
 		
-		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.toString(), e.toString());
-		facesContext.addMessage(null, facesMessage);
+		if (e instanceof ValidationException) {
+			for (ExceptionCause cause : ((ValidationException) e).getCauses()) {
+				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, cause.toString(),
+						formatMessage(cause.getLabel(), cause.getParameters()));
+				facesContext.addMessage(null, facesMessage);
+			}
+		} else {
+			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.toString(), e.toString());
+			facesContext.addMessage(null, facesMessage);
+		}
 	}
 
 	/**

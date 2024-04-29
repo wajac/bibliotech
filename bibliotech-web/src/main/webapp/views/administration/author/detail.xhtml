@@ -55,7 +55,7 @@
 				</p:row>
 				<p:row>
 					<p:column>
-						<p:outputLabel for="firstName" value="#{msg['author.first.name']}" styleClass="label required"/>
+						<p:outputLabel for="firstName" value="#{msg['author.firstName']}" styleClass="label required"/>
 					</p:column>
 					<p:column colspan="3">
 						<p:inputText id="firstName" value="#{authorManager.author.firstName}" required="false" style="width:400px"/>
@@ -63,7 +63,7 @@
 				</p:row>
 				<p:row>
 					<p:column>
-						<p:outputLabel for="lastName" value="#{msg['author.last.name']}" styleClass="label required"/>
+						<p:outputLabel for="lastName" value="#{msg['author.lastName']}" styleClass="label required"/>
 					</p:column>
 					<p:column colspan="3">
 						<p:inputText id="lastName" value="#{authorManager.author.lastName}" required="false" style="width:400px"/>
@@ -74,7 +74,7 @@
 				</p:row>
 				<p:row>
 					<p:column>
-						<p:outputLabel for="address" value="#{msg['author.address']}" styleClass="label"/>
+						<p:outputLabel for="address" value="#{msg['author.address1']}" styleClass="label"/>
 					</p:column>
 					<p:column colspan="3">
 						<p:inputText id="address" value="#{authorManager.author.address1}" style="width:400px"/>
@@ -89,7 +89,7 @@
 				</p:row>
 				<p:row>
 					<p:column>
-						<p:outputLabel for="zipCode" value="#{msg['author.zip.code']}" styleClass="label"/>
+						<p:outputLabel for="zipCode" value="#{msg['author.zipCode']}" styleClass="label"/>
 					</p:column>
 					<p:column colspan="3">
 						<p:inputText id="zipCode" value="#{authorManager.author.zipCode}"/>

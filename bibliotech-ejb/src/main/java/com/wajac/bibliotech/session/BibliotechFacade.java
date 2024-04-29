@@ -87,7 +87,6 @@ public class BibliotechFacade implements BibliotechFacadeLocal {
 	@Override
 	public DTOAuthor saveOrUpdateAuthor(DTOAuthor dto) throws Exception {
 		Author author = dtoAuthor2Author(dto);
-		author.setMajDate(new Date());
 		author = ejbAuthor.saveOrUpdate(author);
 		return author2DTOAuthor(author);
 	}
@@ -223,7 +222,6 @@ public class BibliotechFacade implements BibliotechFacadeLocal {
 	@Override
 	public DTOBook saveOrUpdateBook(DTOBook dto) throws Exception {
 		Book book = dtoBook2Book(dto);
-		book.setMajDate(new Date());
 		book = ejbBook.saveOrUpdate(book);
 		return book2DTOBook(book);
 	}
